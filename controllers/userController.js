@@ -2,9 +2,7 @@ import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import {User} from "../models/User.js"
 import { sendToken } from "../utils/sendToken.js";
-// import getDataUri from "../utils/dataUri.js";
-// import cloudinary from "cloudinary"
- 
+   
 
 export const register = catchAsyncError(async(req,res,next)=>{
        const {name,email,phoneNumber,password} = req.body;
@@ -20,19 +18,12 @@ export const register = catchAsyncError(async(req,res,next)=>{
    return next(new ErrorHandler("User Already exist",409))
  
         
-
-        // const fileUri = getDataUri(file);
-      
-        // const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
         user = await User.create({
             name,
              email,
             phoneNumber,
             password,
-            // avatar:{
-            //     public_id:mycloud.public_id,
-            //     url:mycloud.secure_url,
-            // }
+            
         });
 
     sendToken(res,user,"Registered Successfully");
